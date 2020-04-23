@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewData["Title"] = "UploadFile";
+}
+
+<h1>UploadFile</h1>
+
+<th hidden><span id="m-aloc-freq">34</span></th>
+<div class="input-group">
+    <input type="file" class="form-control" id="selectedFile" name="selectedFile" @*onchange="TrataUpload2(event)"*@>
+    <span class="input-group-btn">
+        <input type="button" class="btn btn-secondary" value="Seleciona..." onclick="document.getElementById('selectedFile').click();" />
+        <button type="button" id="btnSalvar" class="btn btn-primary">
+            UPLOAD ARQUIVO
+        </button>
+    </span>
+</div> 
+
+@section Scripts
+{
+<script>
+    $('#btnSalvar').click(function () {
+        debugger;
+        var filename = $('input[type=file]').val().split('\\').pop();
+            var model = {
+                ParentId: $('#m-aloc-freq').text(),
+                Imagem:$("#selectedFile").val(),
+                filename: filename
+            };
+
+            try {
+                $.ajax({
+                    type: 'POST',
+                    accepts: "application/json",
+                    url: "/v1/ApiPrestador/Upload2",
+                    data: JSON.stringify(model),
+                    contentType: "application/json;",
+                    success: function (data) {
+                        console.info(data);
+                        alert("Upload efetuado com sucesso!");
+                        location.reload(true);
+
+
+                    }
+                });
+            } catch (e) {
+                console.error(e.message);
+            }
+
+        });
+</script>
+}

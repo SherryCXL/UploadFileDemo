@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<button id="btnClick">Click</button>
+<div id="showError">
+
+</div>
+
+@section Scripts
+{
+    <script>
+    $("#btnClick").click(function () {
+        $.ajax({
+            type: "Get",
+            url: "http://localhost:64826/api/Values/GetTestValue/1",
+            //url: "http://localhost:64104/api/test/GetTestValue/1",
+            success: function () {
+                alert("Ok!");
+            },
+            error: function (result) {
+                $("#showError").html(result);
+            }
+        })
+    });
+    </script>
+}
